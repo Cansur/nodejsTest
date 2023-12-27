@@ -1,10 +1,10 @@
-<!-- <table class="table TableBox">
+<table class="table TableBox">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">글 제목</th>
-        <th scope="col">내용</th>
-        <th scope="col">날짜</th>
+        <th scope="col">아이디</th>
+        <th scope="col">패스워드</th>
+        <th scope="col">주소</th>
         <th scope="col">수정/삭제</th>
       </tr>
     </thead>
@@ -13,19 +13,20 @@
       <% data.forEach((el,index) => {%>
       <tr>
         <th scope="row"><%= index + 1%></th>
-        <td><%= el.id %></td>
-        <td><%= el.password %></td>
+        <td><%= el.mb_id %></td>
+        <td><%= el.mb_pw %></td>
+        <td><%= el.address %></td>
         <td>
           <a class="btn btn-warning" href="/edit/<%= el.id %> ">수정/삭제</a>
         </td>
       </tr>
     </tbody>
     <% }) %>
-</table> -->
+</table>
 
 <div>
     <!-- <% data.forEach((el) => {%>
-        <%= el.password %>
+        <%= el.mb_id %>
     <% }) %> -->
-    <%= data[1].id %>
+    <!-- <%= data[0].mb_id %> -->
 </div>

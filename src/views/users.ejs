@@ -44,19 +44,23 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">NUM</th>
                     <th scope="col">ID</th>
                     <th scope="col">PASSWORD</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">ADDRESS</th>
                 </tr>
             </thead>
             <tbody>
+                <% data.forEach((el,index) => {%>
                 <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <th scope="row"><td><%= el.seq %>
+                    </td></th>
+                    <!-- <td></td> -->
+                    <td><%= el.mb_id %></td>
+                    <td><%= el.mb_pw %></td>
+                    <td><%= el.address %></td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <th scope="row">2</th>
                     <td>Jacob</td>
                     <td>Thornton</td>
@@ -66,7 +70,8 @@
                     <th scope="row">3</th>
                     <td colspan="2">Larry the Bird</td>
                     <td>@twitter</td>
-                </tr>
+                </tr> -->
+                <% }) %>
             </tbody>
         </table>
     </div>    

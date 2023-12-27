@@ -3,6 +3,7 @@ const express = require('express');
 
 // Routers
 const usersRoutes = require('./router/users');
+const loginRoutes = require('./router/login');
 const db = require('./router/db');
 
 // express
@@ -11,7 +12,6 @@ const server = http.createServer(app);
 
 // ejs
 app.set('view engine', 'ejs');
-// app.set('view', './views');
 
 // configuration =================================================================
 server.listen(8080, function(){
@@ -19,22 +19,20 @@ server.listen(8080, function(){
 });
 
 app.get('/', function(req, res){
-    // res.sendFile(__dirname + '/index.html');
     res.render('index.ejs');
 });
 
-app.get('/test2', (req, res)=>{
-    // res.sendFile(__dirname + '/tmp/test.html');
-    res.render('test2.ejs');
-});
+// app.get('/test2', (req, res)=>{
+//     res.render('test2.ejs');
+// });
 
 app.use('/Users', usersRoutes);
 
-// const listPage = fs.readFileSync('list.ejs', 'utf8');
+app.use('/login', loginRoutes);
+
 app.get('/test', (req, res)=>{
-    db.query('SELECT * FROM users', (err, result) => {
+    db.query('SELECT * FROM member_table', (err, result) => {
         if(err) console.error(err);
-        // console.log(result);
         res.render('test.ejs', {data: result});
     });
 });
