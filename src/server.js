@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 
 // Routers
+const indexRoutes = require('./router/index');
 const usersRoutes = require('./router/users');
 const loginRoutes = require('./router/login');
 const db = require('./router/db');
@@ -18,13 +19,7 @@ server.listen(8080, function(){
     console.log('listening on port 8080');
 });
 
-app.get('/', function(req, res){
-    res.render('index.ejs');
-});
-
-// app.get('/test2', (req, res)=>{
-//     res.render('test2.ejs');
-// });
+app.use('/', indexRoutes);
 
 app.use('/Users', usersRoutes);
 
