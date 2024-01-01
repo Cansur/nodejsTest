@@ -37,12 +37,11 @@
             </div>
         </div>
     </nav>
-
-    <!-- button -->
+       
     <div class="position-absolute top-50 start-50 translate-middle">
-        <button onclick="location.href='users'" class="btn btn-primary" type="submit">go to users</button>
-        <button onclick="location.href='board'" class="btn btn-primary" type="submit">go to board</button>
-        <button onclick="location.href='login'" class="btn btn-primary" type="submit">go to login</button>
+        <div><h4><%=data[0].title%></h4></div><br>
+        <div><%=data[0].user_id%></div>
+        <div><%=data[0].contents%></div>
     </div>
 
     <!-- Bootstap Script -->

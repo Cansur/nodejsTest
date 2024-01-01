@@ -5,6 +5,7 @@ const express = require('express');
 const indexRoutes = require('./router/index');
 const usersRoutes = require('./router/users');
 const loginRoutes = require('./router/login');
+const boardRoutes = require('./router/board');
 const db = require('./router/db');
 
 // express
@@ -25,13 +26,7 @@ app.use('/Users', usersRoutes);
 
 app.use('/login', loginRoutes);
 
-app.get('/test', (req, res)=>{
-    db.query('SELECT * FROM member_table', (err, result) => {
-        if(err) console.error(err);
-        res.render('test.ejs', {data: result});
-    });
-});
-
+app.use('/board', boardRoutes);
 
 // 간편 시작하기
 // cd /d/Cansur/nodejsTest/src
