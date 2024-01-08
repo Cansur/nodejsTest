@@ -3,7 +3,10 @@ const router = express.Router();
 const db = require('./db');
 // const url = require('url');
 
-// var datas;
+// Body-parser for express
+router.use(express.json()); 
+router.use(express.urlencoded({ extended: false }));
+
 
 router.get('/', function (req, res) {
     sql = `select * from board order by seq desc`
@@ -37,11 +40,24 @@ router.get(`/view/:idx/delete`, function (req, res) {
     });
 
     return res.redirect("../../")
-    // console.log(res.url);
-    // global.location.href = "http://localhost:8080/board/";
-    // location = "http://localhost:8080/board/";
-    // location.href = "http://localhost:8080/board/";
-    // location.assign("http://localhost:8080/board/");
+});
+
+router.get(`/write`, function (req, res) {
+    res.render('write.ejs');
+});
+
+router.get(`/edit`, function (req, res) {
+    res.render('edit.ejs');
+});
+
+router.post("/write", function (req, res) {
+    var title = req.body.title;
+    var content = req.body.content;
+    var sql = `insert into board(title, contents, user_id, likes) values('${title}', '${content}', 'cansur', 0)`
+    db.query(sql, function (err, result, fields) {
+        if (err) throw err;
+    });
+    return res.redirect("../board")
 });
 
 module.exports = router;
