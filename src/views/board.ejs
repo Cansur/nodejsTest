@@ -65,13 +65,47 @@
                     <% }) %>
                 </tbody>
             </table>
+
+            <div class="d-flex justify-content-center">
+                <nav aria-label="...">
+                    <ul class="pagination">
+
+                        <% if(data2[1] != 1) {%>
+                            <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= data2[1]-1 %>"><</a></li>
+                        <% } else { %>
+                            <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= data2[1] %>"><</a></li>
+                        <% } %>
+                        
+                        <% for (var i = 0; i < (data2[0]/10); i++) {%>
+                            <% if(i == data2[1]-1) {%>
+                                <li class="page-item active" aria-current="page">
+                            <% } else { %>
+                                <li class="page-item active" aria-current="page"></li>
+                            <% } %>
+                                <a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= i+1 %>"><%= i+1 %></a>
+                            </li>
+                        <% }%>
+
+                        <!-- <li class="page-item active"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=1">1</a></li>
+                        <li class="page-item" aria-current="page"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=2">2</a></li>
+                        <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=3">3</a></li> -->
+                        <% if(data2[1] != Math.ceil(39 / 10)) { %>
+                            <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= data2[1]+1 %>">></a></li>
+                        <% } else { %>
+                            <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= data2[1] %>">></a></li>
+                        <% } %>
+                    </ul>
+                  </nav>
+            </div>
             
             <div>            
-                <a href='http://localhost:8080/board/write' onClick="" class="btn btn-success">글쓰기</a>            
+                <a href='http://localhost:8080/board/write' onClick="" class="btn btn-success">글쓰기</a>
             </div>
+            <%= data2 %>
         </form>
     </div>
-       
+
+    
        
 
     <!-- Bootstap Script -->
