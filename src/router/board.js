@@ -12,10 +12,11 @@ router.get('/', function (req, res) {
     // 페이징 처리
     var countPerPage = req.query.countperpage;
     var pageNo = req.query.pageno;
+    var pagePre = 0;
     // 기본값 설정 및 전달 내용 확인
     if (countPerPage == undefined || typeof countPerPage == "undefined" || countPerPage == null) {countPerPage = 10;}
 	else { countPerPage = parseInt(countPerPage); }
-	if (pageNo == undefined || typeof pageNo == "undefined" || pageNo == null) { pageNo = 0; } 
+	if (pageNo == undefined || typeof pageNo == "undefined" || pageNo == null) { pageNo = 1; } 
     else { pageNo = parseInt(pageNo); }
 
     
@@ -31,22 +32,24 @@ router.get('/', function (req, res) {
             var endItemNo = (pageNo * countPerPage); // 종료 번호
             // 종료 번호가 전체 크기보다 크면 전체 크기로 변경
             if (endItemNo > (totalCount - 1)) { endItemNo = totalCount - 1; }
-            // console.log(startItemNo, endItemNo);
-            var data2 = [totalCount, pageNo]; // 변수 츄라이 츄라이
+            // console.log(Math.floor(pageNo/5))
+            pagePre = Math.floor((pageNo-1)/5) // 페이지 1, 6, 11 .... 간격 지정
+            var data2 = [totalCount, pageNo, pagePre]; // 변수 츄라이 츄라이
             sql = `select * from board limit ${startItemNo}, ${endItemNo - startItemNo}`
             db.query(sql, function (err, result, fields) {
                 if (err) throw err;
                 res.render('board.ejs', {data : result, data2 : data2});
             });
-        } else {
-            // sql = `select * from board order by seq desc limit 10`
-            sql = `select * from board limit 10`
-            data2 = [result[0].number, pageNo];
-            db.query(sql, function (err, result, fields) {
-                if (err) throw err;
-                res.render('board.ejs', {data : result , data2 : data2});
-            });
-        }
+        } 
+        // else {
+        //     // sql = `select * from board order by seq desc limit 10`
+        //     sql = `select * from board limit 10`
+        //     data2 = [result[0].number, pageNo, pagePre];
+        //     db.query(sql, function (err, result, fields) {
+        //         if (err) throw err;
+        //         res.render('board.ejs', {data : result , data2 : data2});
+        //     });
+        // }
     });
 });
 

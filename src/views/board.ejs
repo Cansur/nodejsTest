@@ -69,27 +69,27 @@
             <div class="d-flex justify-content-center">
                 <nav aria-label="...">
                     <ul class="pagination">
-
                         <% if(data2[1] != 1) {%>
                             <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= data2[1]-1 %>"><</a></li>
                         <% } else { %>
                             <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= data2[1] %>"><</a></li>
                         <% } %>
                         
-                        <% for (var i = 0; i < (data2[0]/10); i++) {%>
-                            <% if(i == data2[1]-1) {%>
+                        <% var num = data2[0] - (50 * data2[2]) > 51 ? 50 : data2[0] - (50 * data2[2]) ; %>
+                        <%for (var i = Math.floor(data2[2]/5); i < num/10; i++) { %>
+                            <% if(i == data2[1]-1-(data2[2]*5)) {%>
                                 <li class="page-item active" aria-current="page">
                             <% } else { %>
                                 <li class="page-item active" aria-current="page"></li>
                             <% } %>
-                                <a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= i+1 %>"><%= i+1 %></a>
+                                <a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= i+1+(data2[2]*5) %>"><%= i+1+(data2[2]*5) %></a>
                             </li>
+                            
                         <% }%>
-
                         <!-- <li class="page-item active"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=1">1</a></li>
                         <li class="page-item" aria-current="page"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=2">2</a></li>
                         <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=3">3</a></li> -->
-                        <% if(data2[1] != Math.ceil(39 / 10)) { %>
+                        <% if(data2[1] != Math.ceil(data2[0] / 10)) { %>
                             <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= data2[1]+1 %>">></a></li>
                         <% } else { %>
                             <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= data2[1] %>">></a></li>
