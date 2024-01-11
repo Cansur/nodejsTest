@@ -40,6 +40,21 @@
             </div>
         </div>
     </nav>
+
+    <div><br><br>
+        <form action="/board" method="post">
+        <div class="input-group mb-3 w-25 container-sm">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">제목</button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">제목</a></li>
+              <li><a class="dropdown-item" href="#">내용</a></li>
+              <li><a class="dropdown-item" href="#">제목+내용</a></li>
+            </ul>
+            <input type="text" class="form-control" aria-label="Text input with dropdown button" name="search">
+        </div>
+        </form> 
+    </div><br>
+
     <div class="container">
         <form id="boardForm" name="boardForm" method="post" action="/board">
             <table class="table table-striped table-hover">
@@ -69,10 +84,15 @@
             <div class="d-flex justify-content-center">
                 <nav aria-label="...">
                     <ul class="pagination">
-                        <% if(data2[1] != 1) {%>
-                            <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= data2[1]-1 %>"><</a></li>
+                        <!-- < 버튼 -->
+                        <%if(data2[0] != 0) { %>
+                            <% if(data2[1] != 1) {%>
+                                <li class="page-item"><a class="page-link" href="http://localhost:8080/board?search=<%=data2[3]%>&pageno=<%= data2[1]-1 %>"><</a></li>
+                            <% } else { %>
+                                <li class="page-item"><a class="page-link" href="http://localhost:8080/board?search=<%=data2[3]%>&pageno=<%= data2[1] %>"><</a></li>
+                            <% } %>
                         <% } else { %>
-                            <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= data2[1] %>"><</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><</a></li>
                         <% } %>
                         
                         <% var num = data2[0] - (50 * data2[2]) > 51 ? 50 : data2[0] - (50 * data2[2]) ; %>
@@ -82,26 +102,29 @@
                             <% } else { %>
                                 <li class="page-item active" aria-current="page"></li>
                             <% } %>
-                                <a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= i+1+(data2[2]*5) %>"><%= i+1+(data2[2]*5) %></a>
+                                <a class="page-link" href="http://localhost:8080/board?search=<%=data2[3]%>&pageno=<%=i+1+(data2[2]*5)%>"><%=i+1+(data2[2]*5)%></a>
                             </li>
-                            
                         <% }%>
-                        <!-- <li class="page-item active"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=1">1</a></li>
-                        <li class="page-item" aria-current="page"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=2">2</a></li>
-                        <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=3">3</a></li> -->
-                        <% if(data2[1] != Math.ceil(data2[0] / 10)) { %>
-                            <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= data2[1]+1 %>">></a></li>
-                        <% } else { %>
-                            <li class="page-item"><a class="page-link" href="http://localhost:8080/board?countperpage=10&pageno=<%= data2[1] %>">></a></li>
-                        <% } %>
+
+                        <!-- > 버튼 -->
+                        <%if(data2[0] != 0) {%>
+                            <% if(data2[1] != Math.ceil(data2[0] / 10)) { %>
+                                <li class="page-item"><a class="page-link" href="http://localhost:8080/board?search=<%=data2[3]%>&pageno=<%= data2[1]+1 %>">></a></li>
+                            <% } else { %>
+                                <li class="page-item"><a class="page-link" href="http://localhost:8080/board?search=<%=data2[3]%>&pageno=<%= data2[1] %>">></a></li>
+                            <% } %>
+                        <% } else {%>
+                            <li class="page-item"><a class="page-link" href="#">></a></li>
+                        <% }%>
                     </ul>
                   </nav>
             </div>
-            
+
+            <!-- 실험중 -->
+
             <div>            
                 <a href='http://localhost:8080/board/write' onClick="" class="btn btn-success">글쓰기</a>
             </div>
-            <%= data2 %>
         </form>
     </div>
 
